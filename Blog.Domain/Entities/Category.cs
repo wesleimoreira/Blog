@@ -1,5 +1,4 @@
 ﻿using Blog.Domain.Common;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Blog.Domain.Entities
 {
@@ -7,9 +6,9 @@ namespace Blog.Domain.Entities
     {
         public string Name { get; private set; }
 
-        public string? Description { get; private set; }
-
         public string Slug { get; private set; }
+
+        public string? Description { get; private set; }
 
         private readonly List<Post> _posts = [];
 
@@ -21,11 +20,29 @@ namespace Blog.Domain.Entities
             Slug = string.Empty;
         }
 
-        public Category(string name, string? description, string slug)
+        public Category(string name, string? description = null)
         {
-            Name = name;
-            Description = description;
-            Slug = slug;
+            Name = DomainGuard.Required(name, nameof(Name));
+
+            Slug = SlugGenerator.Generate(Name);
+
+            Description = NormalizeDescription(description);
+        }
+
+        public void Update(string name, string? description = null)
+        {
+            Name = DomainGuard.Required(name, nameof(Name));
+
+            Slug = SlugGenerator.Generate(Name);
+
+            Description = NormalizeDescription(description);
+
+            SetUpdatedAt();
+        }
+
+        private static string? NormalizeDescription(string? description)
+        {
+            return string.IsNullOrWhiteSpace(description) ? null : description.Trim();
         }
     }
 }

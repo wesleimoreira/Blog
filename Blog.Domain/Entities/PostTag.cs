@@ -5,11 +5,9 @@ namespace Blog.Domain.Entities
     public class PostTag
     {
         public Guid PostId { get; private set; }
-
-        public Guid TagId { get; private set; }
-
         public Post Post { get; private set; } = null!;
 
+        public Guid TagId { get; private set; }
         public Tag Tag { get; private set; } = null!;
 
         protected PostTag()
@@ -18,7 +16,9 @@ namespace Blog.Domain.Entities
 
         public PostTag(Guid postId, Guid tagId)
         {
-            PostId = postId;
-            TagId = tagId;
+            PostId = DomainGuard.Required(postId, nameof(PostId));
+
+            TagId = DomainGuard.Required(tagId, nameof(TagId));
         }
     }
+}

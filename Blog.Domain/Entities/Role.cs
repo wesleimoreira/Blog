@@ -17,7 +17,20 @@ namespace Blog.Domain.Entities
 
         public Role(string name)
         {
-            Name = name;
+            Name = NormalizeName(name);
+        }
+
+        public void UpdateName(string name)
+        {
+            Name = NormalizeName(name);
+            SetUpdatedAt();
+        }
+
+        private static string NormalizeName(string name)
+        {
+            name = DomainGuard.Required(name, nameof(Name));
+
+            return char.ToUpperInvariant(name[0]) + name[1..].ToLowerInvariant();
         }
     }
 }

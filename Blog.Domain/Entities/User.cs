@@ -32,12 +32,43 @@ namespace Blog.Domain.Entities
             PasswordHash = string.Empty;
         }
 
-        public User(string firstName, string lastName, string email, string passwordHash)
+        public User(string firstName, string lastName, string email, string passwordHash, Guid roleId)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            PasswordHash = passwordHash;
+            FirstName = DomainGuard.Required(firstName, nameof(FirstName));
+
+            LastName = DomainGuard.Required(lastName, nameof(LastName));
+
+            Email = ValidateEmail(email);
+
+            PasswordHash = DomainGuard.Required(passwordHash, nameof(PasswordHash));
+
+            if (roleId == Guid.Empty)
+            {
+                throw new DomainException("Role is required.");
+            }
+
+            RoleId = roleId;
+        }
+
+        private static string ValidateEmail(string email)
+        {
+            email = DomainGuard.Required(email, nameof(Email));
+
+            try
+            {
+                var address = new System.Net.Mail.MailAddress(email);
+
+                if (address.Address != email)
+                {
+                    throw new DomainException("Invalid email format.");
+                }
+            }
+            catch (FormatException)
+            {
+                throw new DomainException("Invalid email format.");
+            }
+
+            return email.ToLowerInvariant();
         }
     }
 }

@@ -18,10 +18,20 @@ namespace Blog.Domain.Entities
             Slug = string.Empty;
         }
 
-        public Tag(string name, string slug)
+        public Tag(string name)
         {
-            Name = name;
-            Slug = slug;
+            Name = DomainGuard.Required(name, nameof(Name));
+
+            Slug = SlugGenerator.Generate(Name);
+        }
+
+        public void UpdateName(string name)
+        {
+            Name = DomainGuard.Required(name, nameof(Name));
+
+            Slug = SlugGenerator.Generate(Name);
+
+            SetUpdatedAt();
         }
     }
 }
