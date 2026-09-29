@@ -8,6 +8,10 @@ namespace Blog.Domain.Entities
 
         public string Slug { get; private set; }
 
+        private readonly List<PostTag> _postTags = [];
+
+        public IReadOnlyCollection<PostTag> PostTags => _postTags;
+
         protected Tag()
         {
             Name = string.Empty;

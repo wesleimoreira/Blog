@@ -8,6 +8,14 @@ namespace Blog.Domain.Entities
 
         public bool IsApproved { get; private set; }
 
+        public Guid PostId { get; private set; }
+
+        public Post Post { get; private set; } = null!;
+
+        public Guid UserId { get; private set; }
+
+        public User User { get; private set; } = null!;
+
         protected Comment()
         {
             Content = string.Empty;

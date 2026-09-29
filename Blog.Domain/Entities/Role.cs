@@ -6,6 +6,10 @@ namespace Blog.Domain.Entities
     {
         public string Name { get; private set; }
 
+        private readonly List<User> _users = [];
+
+        public IReadOnlyCollection<User> Users => _users;
+
         protected Role()
         {
             Name = string.Empty;

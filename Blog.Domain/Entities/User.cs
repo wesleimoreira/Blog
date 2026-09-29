@@ -12,6 +12,18 @@ namespace Blog.Domain.Entities
 
         public string PasswordHash { get; private set; }
 
+        public Guid RoleId { get; private set; }
+
+        public Role Role { get; private set; } = null!;
+
+        private readonly List<Post> _posts = [];
+
+        public IReadOnlyCollection<Post> Posts => _posts;
+
+        private readonly List<Comment> _comments = [];
+
+        public IReadOnlyCollection<Comment> Comments => _comments;
+
         protected User()
         {
             FirstName = string.Empty;

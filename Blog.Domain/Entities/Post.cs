@@ -16,6 +16,22 @@ namespace Blog.Domain.Entities
 
         public DateTime? PublishedAt { get; private set; }
 
+        public Guid AuthorId { get; private set; }
+
+        public User Author { get; private set; } = null!;
+
+        public Guid CategoryId { get; private set; }
+
+        public Category Category { get; private set; } = null!;
+
+        private readonly List<Comment> _comments = [];
+
+        public IReadOnlyCollection<Comment> Comments => _comments;
+
+        private readonly List<PostTag> _postTags = [];
+
+        public IReadOnlyCollection<PostTag> PostTags => _postTags;
+
         protected Post()
         {
             Title = string.Empty;

@@ -11,6 +11,10 @@ namespace Blog.Domain.Entities
 
         public string Slug { get; private set; }
 
+        private readonly List<Post> _posts = [];
+
+        public IReadOnlyCollection<Post> Posts => _posts;
+
         protected Category()
         {
             Name = string.Empty;
