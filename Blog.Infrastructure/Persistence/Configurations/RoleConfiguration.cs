@@ -28,6 +28,31 @@ namespace Blog.Infrastructure.Persistence.Configurations
             builder
                 .HasIndex(role => role.Name)
                 .IsUnique();
+
+            var createdAt = new DateTime(2026, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            builder.HasData(
+            new
+            {
+                Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                Name = "Admin",
+                CreatedAt = createdAt,
+                UpdatedAt = (DateTime?)null
+            },
+            new
+            {
+                Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                Name = "Author",
+                CreatedAt = createdAt,
+                UpdatedAt = (DateTime?)null
+            },
+            new
+            {
+                Id = Guid.Parse("33333333-3333-3333-3333-333333333333"),
+                Name = "Reader",
+                CreatedAt = createdAt,
+                UpdatedAt = (DateTime?)null
+            });
         }
     }
 }
