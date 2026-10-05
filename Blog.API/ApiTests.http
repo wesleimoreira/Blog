@@ -1,0 +1,44 @@
+@Blog.Api_HostAddress = https://localhost:7125
+
+### ============================================
+### USERS
+### ============================================
+
+### Registrar usuário
+POST {{Blog.Api_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "João",
+  "lastName": "Silva",
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+### 0961c89a-df6e-4c6b-a578-5f57d233cfc2
+
+### Registrar o mesmo usuário novamente
+POST {{Blog.Api_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "João",
+  "lastName": "Silva",
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+### ============================================
+### USERS - VALIDATION
+### ============================================
+
+### Cadastro inválido
+POST {{Blog.Api_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "",
+  "lastName": "",
+  "email": "email-invalido",
+  "password": "123"
+}

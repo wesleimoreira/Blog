@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Abstractions.Authentication;
 using Blog.Application.Abstractions.Persistence;
 using Blog.Application.Abstractions.Repositories;
+using Blog.Application.Features.Users.RegisterUser;
 using Blog.Infrastructure.Persistence;
 using Blog.Infrastructure.Persistence.Authentication;
 using Blog.Infrastructure.Persistence.Repositories;
@@ -22,9 +23,14 @@ namespace Blog.Infrastructure
                 });
             });
 
+            // Handlers
+            services.AddScoped<RegisterUserHandler>();
+
+            // Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
 
             return services;
         }
