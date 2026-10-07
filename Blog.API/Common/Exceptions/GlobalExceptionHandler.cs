@@ -19,6 +19,8 @@ namespace Blog.API.Common.Exceptions
 
                 NotFoundException => (StatusCodes.Status404NotFound, exception.Message),
 
+                UnauthorizedException => (StatusCodes.Status401Unauthorized, exception.Message),
+
                 ValidationException => (StatusCodes.Status400BadRequest, exception.Message),
 
                 DomainException => (StatusCodes.Status400BadRequest, exception.Message),

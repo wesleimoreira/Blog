@@ -42,3 +42,55 @@ Content-Type: application/json
   "email": "email-invalido",
   "password": "123"
 }
+
+### ============================================
+### AUTHENTICATION
+### ============================================
+
+### Login válido
+# @name login
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+### Login senha inválida
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@email.com",
+  "password": "SenhaErrada"
+}
+
+### Login usuário inexistente
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "naoexiste@email.com",
+  "password": "Senha123"
+}
+
+### Login inválido
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "abc",
+  "password": ""
+}
+
+### ============================================
+### JWT / AUTHORIZATION
+### ============================================
+
+### Meu perfil - autenticado
+GET {{Blog.Api_HostAddress}}/api/auth/me
+Authorization: Bearer {{login.response.body.$.data.accessToken}}
+
+### Meu perfil - sem token
+GET {{Blog.Api_HostAddress}}/api/auth/me

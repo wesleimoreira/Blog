@@ -2,6 +2,7 @@
 using Blog.Application.Abstractions.Persistence;
 using Blog.Application.Abstractions.Repositories;
 using Blog.Application.Features.Users.RegisterUser;
+using Blog.Infrastructure.Authentication;
 using Blog.Infrastructure.Persistence;
 using Blog.Infrastructure.Persistence.Authentication;
 using Blog.Infrastructure.Persistence.Repositories;
@@ -31,6 +32,10 @@ namespace Blog.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+
+            // Authentication
+            services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
             return services;
         }

@@ -1,9 +1,10 @@
-﻿using Blog.Domain.Entities;
+﻿using Blog.Application.Features.Authentication.Login;
+using Blog.Domain.Entities;
 
 namespace Blog.Application.Abstractions.Authentication
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateAccessToken(User user);
+        AuthenticationResponse GenerateToken(User user);
     }
 }

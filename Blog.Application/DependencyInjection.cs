@@ -1,4 +1,5 @@
-﻿using Blog.Application.Features.Users.RegisterUser;
+﻿using Blog.Application.Features.Authentication.Login;
+using Blog.Application.Features.Users.RegisterUser;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Blog.Application
@@ -8,6 +9,8 @@ namespace Blog.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<RegisterUserValidator>();
+            services.AddScoped<LoginValidator>();
+            services.AddScoped<LoginHandler>();
 
             return services;
         }
