@@ -45,7 +45,11 @@ builder.Services
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services
+    .AddAuthorizationBuilder()
+    .AddPolicy("CanReadPosts", policy => policy.RequireRole("Reader", "Author", "Admin"))
+    .AddPolicy("CanManagePosts", policy => policy.RequireRole("Author", "Admin"))
+    .AddPolicy("CanManageUsers", policy => policy.RequireRole("Admin"));
 
 var app = builder.Build();
 

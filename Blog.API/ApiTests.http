@@ -47,7 +47,7 @@ Content-Type: application/json
 ### AUTHENTICATION
 ### ============================================
 
-### Login válido
+### Login para obter os tokens
 # @name login
 POST {{Blog.Api_HostAddress}}/api/auth/login
 Content-Type: application/json
@@ -55,6 +55,23 @@ Content-Type: application/json
 {
   "email": "joao.silva@email.com",
   "password": "Senha123"
+}
+
+### Renovar os tokens
+# @name refresh
+POST {{Blog.Api_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{login.response.body.$.data.refreshToken}}"
+}
+
+### Reutilizar o refresh token anterior - deve falhar
+POST {{Blog.Api_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{login.response.body.$.data.refreshToken}}"
 }
 
 ### Login senha inválida

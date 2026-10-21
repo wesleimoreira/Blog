@@ -1,5 +1,4 @@
 ﻿using Blog.Application.Abstractions.Authentication;
-using Blog.Application.Features.Authentication.Login;
 using Blog.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -13,7 +12,7 @@ namespace Blog.Infrastructure.Authentication
     {
         private readonly JwtSettings _settings = settings.Value;
 
-        public AuthenticationResponse GenerateToken(User user)
+        public AccessTokenResult GenerateToken(User user)
         {
             var expiresAt = DateTime.UtcNow.AddMinutes(_settings.ExpirationInMinutes);
 
@@ -38,14 +37,7 @@ namespace Blog.Infrastructure.Authentication
 
             var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return new AuthenticationResponse(
-             accessToken,
-             expiresAt,
-             user.Id,
-             user.FirstName,
-             user.LastName,
-             user.Email,
-             user.Role.Name);
+            return new AccessTokenResult(accessToken, expiresAt);
         }
     }
 }

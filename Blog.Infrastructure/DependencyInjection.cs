@@ -32,10 +32,13 @@ namespace Blog.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
             // Authentication
             services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+            services.Configure<RefreshTokenSettings>(configuration.GetSection("RefreshToken"));
 
             return services;
         }
