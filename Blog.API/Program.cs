@@ -49,7 +49,8 @@ builder.Services
     .AddAuthorizationBuilder()
     .AddPolicy("CanReadPosts", policy => policy.RequireRole("Reader", "Author", "Admin"))
     .AddPolicy("CanManagePosts", policy => policy.RequireRole("Author", "Admin"))
-    .AddPolicy("CanManageUsers", policy => policy.RequireRole("Admin"));
+    .AddPolicy("CanManageUsers", policy => policy.RequireRole("Admin"))
+    .AddPolicy("CanManageCategories", policy => policy.RequireRole("Admin"));
 
 var app = builder.Build();
 

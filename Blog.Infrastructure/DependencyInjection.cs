@@ -40,6 +40,9 @@ namespace Blog.Infrastructure
             services.AddScoped<IRefreshTokenService, RefreshTokenService>();
             services.Configure<RefreshTokenSettings>(configuration.GetSection("RefreshToken"));
 
+            // Category Repository
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
             return services;
         }
     }

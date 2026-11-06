@@ -111,3 +111,46 @@ Authorization: Bearer {{login.response.body.$.data.accessToken}}
 
 ### Meu perfil - sem token
 GET {{Blog.Api_HostAddress}}/api/auth/me
+
+
+
+
+### ============================================
+###  CATEGORIES
+### ============================================
+
+
+### Criar categoria
+# @name createCategory
+POST {{Blog.Api_HostAddress}}/api/categories
+Authorization: Bearer {{login.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Desenvolvimento .NET",
+  "description": "Conteúdos sobre desenvolvimento utilizando a plataforma .NET."
+}
+
+
+### Listar categorias
+GET {{Blog.Api_HostAddress}}/api/categories
+
+### Consultar categoria por ID
+GET {{Blog.Api_HostAddress}}/api/categories/{{createCategory.response.body.$.id}}
+
+
+### Atualizar categoria
+PUT {{Blog.Api_HostAddress}}/api/categories/{{createCategory.response.body.$.id}}
+Authorization: Bearer {{login.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Desenvolvimento C# e .NET",
+  "description": "Conteúdos sobre C#, ASP.NET Core e .NET."
+}
+
+### Excluir categoria
+DELETE {{Blog.Api_HostAddress}}/api/categories/{{createCategory.response.body.$.id}}
+Authorization: Bearer {{login.response.body.$.data.accessToken}}
+
+
