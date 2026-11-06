@@ -42,6 +42,7 @@ namespace Blog.Infrastructure
 
             // Category Repository
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
 
             return services;
         }

@@ -154,3 +154,53 @@ DELETE {{Blog.Api_HostAddress}}/api/categories/{{createCategory.response.body.$.
 Authorization: Bearer {{login.response.body.$.data.accessToken}}
 
 
+### ============================================
+###  TAGS
+### ============================================
+
+
+### Create Tag
+# @name createTag
+POST {{Blog.Api_HostAddress}}/api/tags
+Authorization: Bearer {{login.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "ASP.NET Core"
+}
+
+### Get All Tags
+GET {{Blog.Api_HostAddress}}/api/tags
+
+### Get Tag By Id
+GET {{Blog.Api_HostAddress}}/api/tags/{{createTag.response.body.$.id}}
+
+### Update Tag
+PUT {{Blog.Api_HostAddress}}/api/tags/{{createTag.response.body.$.id}}
+Authorization: Bearer {{login.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "ASP.NET Core e Web API"
+}
+
+### Delete Tag
+DELETE {{Blog.Api_HostAddress}}/api/tags/{{createTag.response.body.$.id}}
+Authorization: Bearer {{login.response.body.$.data.accessToken}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

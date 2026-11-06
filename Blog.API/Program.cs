@@ -50,7 +50,8 @@ builder.Services
     .AddPolicy("CanReadPosts", policy => policy.RequireRole("Reader", "Author", "Admin"))
     .AddPolicy("CanManagePosts", policy => policy.RequireRole("Author", "Admin"))
     .AddPolicy("CanManageUsers", policy => policy.RequireRole("Admin"))
-    .AddPolicy("CanManageCategories", policy => policy.RequireRole("Admin"));
+    .AddPolicy("CanManageCategories", policy => policy.RequireRole("Admin"))
+    .AddPolicy("CanManageTags", policy =>    policy.RequireRole("Admin"));
 
 var app = builder.Build();
 
