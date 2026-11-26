@@ -23,7 +23,7 @@ Content-Type: application/json
 ###
 
 ### Consultar comentários aprovados do Post
-GET {{Blog.Api_HostAddress}}/api/comments/post/GUID_DO_POST_PUBLICADO
+GET {{Blog.Api_HostAddress}}/api/comments/post/24063b66-011d-4c11-8291-0cca446ed3ac
 
 ### Login como Admin
 # @name loginAdmin
@@ -31,7 +31,7 @@ POST {{Blog.Api_HostAddress}}/api/auth/login
 Content-Type: application/json
 {
   "email": "joao.silva@email.com",
-  "password": "SUA_SENHA"
+  "password": "Senha123"
 }
 
 
@@ -41,7 +41,7 @@ Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
 
 
 ### Consultar comentários aprovados
-GET {{Blog.Api_HostAddress}}/api/comments/post/GUID_DO_POST_PUBLICADO
+GET {{Blog.Api_HostAddress}}/api/comments/post/24063b66-011d-4c11-8291-0cca446ed3ac
 
 
 ### Rejeitar comentário

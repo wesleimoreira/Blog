@@ -1,6 +1,13 @@
 <Solution>
-  <Project Path="Blog.API/Blog.API.csproj" Id="0f958a49-3ee0-4913-99e4-a86fdd8ca75d" />
-  <Project Path="Blog.Application/Blog.Application.csproj" Id="eb282023-ef3e-4403-b53f-8ba752f60998" />
-  <Project Path="Blog.Domain/Blog.Domain.csproj" Id="649a3528-5e49-4896-ac3c-a5948213c5bc" />
-  <Project Path="Blog.Infrastructure/Blog.Infrastructure.csproj" Id="b3e038e5-1f45-4acf-828f-dc2991465837" />
+  <Folder Name="/src/">
+    <Project Path="Blog.API/Blog.API.csproj" Id="0f958a49-3ee0-4913-99e4-a86fdd8ca75d" />
+    <Project Path="Blog.Application/Blog.Application.csproj" Id="eb282023-ef3e-4403-b53f-8ba752f60998" />
+    <Project Path="Blog.Domain/Blog.Domain.csproj" Id="649a3528-5e49-4896-ac3c-a5948213c5bc" />
+    <Project Path="Blog.Infrastructure/Blog.Infrastructure.csproj" Id="b3e038e5-1f45-4acf-828f-dc2991465837" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Blog.Application.Tests/Blog.Application.Tests.csproj" />
+    <Project Path="tests/Blog.Domain.Tests/Blog.Domain.Tests.csproj" />
+    <Project Path="tests/Blog.IntegrationTests/Blog.IntegrationTests.csproj" />
+  </Folder>
 </Solution>
