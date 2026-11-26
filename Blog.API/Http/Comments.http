@@ -1,0 +1,63 @@
+
+@Blog.Api_HostAddress = https://localhost:7125
+
+### Login como Reader
+# @name loginReader
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+{
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+### Criar comentário
+# @name createComment
+POST {{Blog.Api_HostAddress}}/api/comments
+Authorization: Bearer {{loginReader.response.body.$.data.accessToken}}
+Content-Type: application/json
+{
+  "content": "Excelente artigo!",
+  "postId": "24063b66-011d-4c11-8291-0cca446ed3ac"
+}
+
+###
+
+### Consultar comentários aprovados do Post
+GET {{Blog.Api_HostAddress}}/api/comments/post/GUID_DO_POST_PUBLICADO
+
+### Login como Admin
+# @name loginAdmin
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+{
+  "email": "joao.silva@email.com",
+  "password": "SUA_SENHA"
+}
+
+
+### Aprovar comentário
+POST {{Blog.Api_HostAddress}}/api/comments/{{createComment.response.body.$.id}}/approve
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+
+
+### Consultar comentários aprovados
+GET {{Blog.Api_HostAddress}}/api/comments/post/GUID_DO_POST_PUBLICADO
+
+
+### Rejeitar comentário
+POST {{Blog.Api_HostAddress}}/api/comments/{{createComment.response.body.$.id}}/reject
+Authorization: Bearer {{adminToken}}
+
+### Atualizar comentário (autor)
+PUT {{Blog.Api_HostAddress}}/api/comments/{{createComment.response.body.$.id}}
+Authorization: Bearer {{readerToken}}
+Content-Type: application/json
+{
+  "content": "Comentário atualizado!"
+}
+
+### Excluir comentário (autor)
+DELETE {{Blog.Api_HostAddress}}/api/comments/{{createComment.response.body.$.id}}
+Authorization: Bearer {{readerToken}}
+
+

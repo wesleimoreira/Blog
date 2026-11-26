@@ -5,6 +5,12 @@ using Blog.Application.Features.Categories.DeleteCategory;
 using Blog.Application.Features.Categories.GetCategories;
 using Blog.Application.Features.Categories.GetCategoryById;
 using Blog.Application.Features.Categories.UpdateCategory;
+using Blog.Application.Features.Comments.ApproveComment;
+using Blog.Application.Features.Comments.CreateComment;
+using Blog.Application.Features.Comments.DeleteComment;
+using Blog.Application.Features.Comments.GetApprovedComments;
+using Blog.Application.Features.Comments.RejectComment;
+using Blog.Application.Features.Comments.UpdateComment;
 using Blog.Application.Features.Posts.CreatePost;
 using Blog.Application.Features.Posts.DeletePost;
 using Blog.Application.Features.Posts.GetPostById;
@@ -19,6 +25,7 @@ using Blog.Application.Features.Tags.GetTagById;
 using Blog.Application.Features.Tags.GetTags;
 using Blog.Application.Features.Tags.UpdateTag;
 using Blog.Application.Features.Users.RegisterUser;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Blog.Application
@@ -62,6 +69,16 @@ namespace Blog.Application
             services.AddScoped<DeletePostHandler>();
             services.AddScoped<PublishPostHandler>();
             services.AddScoped<UnpublishPostHandler>();
+
+            // Register Comment handlers
+            services.AddScoped<CreateCommentValidator>();
+            services.AddScoped<CreateCommentHandler>();
+            services.AddScoped<GetApprovedCommentsHandler>();
+            services.AddScoped<ApproveCommentHandler>();
+            services.AddScoped<RejectCommentHandler>();
+            services.AddScoped<UpdateCommentValidator>();
+            services.AddScoped<UpdateCommentHandler>();
+            services.AddScoped<DeleteCommentHandler>();
 
             return services;
         }

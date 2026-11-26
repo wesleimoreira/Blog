@@ -46,7 +46,7 @@ namespace Blog.Infrastructure
 
             // Post Repository
             services.AddScoped<IPostRepository, PostRepository>();
-
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
             return services;
         }
