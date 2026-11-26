@@ -1,0 +1,72 @@
+
+@Blog.Api_HostAddress = https://localhost:7125
+
+### ============================================
+### AUTHENTICATION
+### ============================================
+
+### Login
+# @name login
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+
+### Renovar os tokens
+# @name refresh
+POST {{Blog.Api_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{login.response.body.$.data.refreshToken}}"
+}
+
+### Reutilizar refresh token anterior - deve falhar
+POST {{Blog.Api_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{login.response.body.$.data.refreshToken}}"
+}
+
+### Login com senha inválida
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@email.com",
+  "password": "SenhaErrada"
+}
+
+### Login com usuário inexistente
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "naoexiste@email.com",
+  "password": "SUA_SENHA"
+}
+
+### Login inválido
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "abc",
+  "password": ""
+}
+
+### ============================================
+### JWT / AUTHORIZATION
+### ============================================
+
+### Meu perfil - autenticado
+GET {{Blog.Api_HostAddress}}/api/auth/me
+Authorization: Bearer {{login.response.body.$.data.accessToken}}
+
+### Meu perfil - sem token
+GET {{Blog.Api_HostAddress}}/api/auth/me

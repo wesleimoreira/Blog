@@ -1,0 +1,145 @@
+
+@Blog.Api_HostAddress = https://localhost:7125
+
+### ============================================
+### AUTHENTICATION
+### ============================================
+
+### Login Admin
+# @name loginAdmin
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+{
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+
+### Login Author
+# @name loginAuthor
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "EMAIL_DO_AUTHOR",
+  "password": "SENHA_DO_AUTHOR"
+}
+
+### ============================================
+### POSTS - CREATE
+### ============================================
+
+### Criar Post
+# @name createPost
+POST {{Blog.Api_HostAddress}}/api/posts
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Introdução ao ASP.NET Core 2",
+  "summary": "Conheça os fundamentos do ASP.NET Core 2.",
+  "content": "Neste artigo vamos conhecer os principais conceitos do ASP.NET Core e como desenvolver APIs utilizando a plataforma.",
+  "categoryId": "21fe0e57-bd4d-4416-99b3-ae4efab73af6",
+  "tagIds": [
+    "a4cb8d67-71c9-46cf-9a1d-146fdaf9d052"
+  ]
+}
+
+### ============================================
+### POSTS - GET BY ID
+### ============================================
+
+### Consultar Post por ID - Admin
+GET {{Blog.Api_HostAddress}}/api/posts/{{createPost.response.body.$.id}}
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+
+### Consultar Post por ID - Author
+GET {{Blog.Api_HostAddress}}/api/posts/{{createPost.response.body.$.id}}
+Authorization: Bearer {{loginAuthor.response.body.$.data.accessToken}}
+
+### Consultar Post inexistente - deve retornar 404
+GET {{Blog.Api_HostAddress}}/api/posts/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+
+### Consultar Post sem autenticação - deve retornar 401
+GET {{Blog.Api_HostAddress}}/api/posts/{{createPost.response.body.$.id}}
+
+
+### ============================================
+### POSTS - UPDATE
+### ============================================
+
+### Atualizar Post
+PUT {{Blog.Api_HostAddress}}/api/posts/{{createPost.response.body.$.id}}
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Introdução ao ASP.NET Core 10",
+  "summary": "Conheça os fundamentos do ASP.NET Core 10.",
+  "content": "Neste artigo vamos conhecer os principais conceitos do ASP.NET Core 10 e como desenvolver APIs utilizando a plataforma.",
+  "categoryId": "21fe0e57-bd4d-4416-99b3-ae4efab73af6",
+  "tagIds": [
+    "a4cb8d67-71c9-46cf-9a1d-146fdaf9d052"
+  ]
+}
+
+
+### ============================================
+### POSTS - DELETE
+### ============================================
+
+### Excluir Post
+DELETE {{Blog.Api_HostAddress}}/api/posts/{{createPost.response.body.$.id}}
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+
+
+### ============================================
+### POSTS - PUBLISH / UNPUBLISH
+### ============================================
+
+### Publicar Post
+POST {{Blog.Api_HostAddress}}/api/posts/{{createPost.response.body.$.id}}/publish
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+
+### Consultar Post publicado
+GET {{Blog.Api_HostAddress}}/api/posts/{{createPost.response.body.$.id}}
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+
+### Despublicar Post
+POST {{Blog.Api_HostAddress}}/api/posts/{{createPost.response.body.$.id}}/unpublish
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+
+
+### ============================================
+### POSTS - PAGINATION
+### ============================================
+
+### Listar Posts - primeira página
+GET {{Blog.Api_HostAddress}}/api/posts?page=1&pageSize=10
+
+### Listar Posts - segunda página
+GET {{Blog.Api_HostAddress}}/api/posts?page=2&pageSize=10
+
+### Listar Posts - página inválida
+GET {{Blog.Api_HostAddress}}/api/posts?page=0&pageSize=10
+
+### Listar Posts - tamanho inválido
+GET {{Blog.Api_HostAddress}}/api/posts?page=1&pageSize=200
+
+
+### ============================================
+### POSTS - FILTERS
+### ============================================
+
+### Filtrar por categoria
+GET {{Blog.Api_HostAddress}}/api/posts?page=1&pageSize=10&categoryId=ID_DA_CATEGORIA
+
+### Filtrar por Tag
+GET {{Blog.Api_HostAddress}}/api/posts?page=1&pageSize=10&tagId=ID_DA_TAG
+
+### Filtrar por categoria e Tag
+GET {{Blog.Api_HostAddress}}/api/posts?page=1&pageSize=10&categoryId=ID_DA_CATEGORIA&tagId=ID_DA_TAG
+
+### Filtrar por categoria - sem resultados
+GET {{Blog.Api_HostAddress}}/api/posts?page=1&pageSize=10&categoryId=00000000-0000-0000-0000-000000000000

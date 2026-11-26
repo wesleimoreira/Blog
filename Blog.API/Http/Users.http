@@ -1,0 +1,39 @@
+
+@Blog.Api_HostAddress = https://localhost:7125
+
+### ============================================
+### USERS
+### ============================================
+
+### Registrar usuário
+POST {{Blog.Api_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "João",
+  "lastName": "Silva",
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+### Registrar o mesmo usuário novamente - deve falhar
+POST {{Blog.Api_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "João",
+  "lastName": "Silva",
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+### Cadastro inválido - deve retornar 400
+POST {{Blog.Api_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "",
+  "lastName": "",
+  "email": "email-invalido",
+  "password": "123"
+}

@@ -5,6 +5,14 @@ using Blog.Application.Features.Categories.DeleteCategory;
 using Blog.Application.Features.Categories.GetCategories;
 using Blog.Application.Features.Categories.GetCategoryById;
 using Blog.Application.Features.Categories.UpdateCategory;
+using Blog.Application.Features.Posts.CreatePost;
+using Blog.Application.Features.Posts.DeletePost;
+using Blog.Application.Features.Posts.GetPostById;
+using Blog.Application.Features.Posts.GetPostBySlug;
+using Blog.Application.Features.Posts.GetPublishedPosts;
+using Blog.Application.Features.Posts.PublishPost;
+using Blog.Application.Features.Posts.UnpublishPost;
+using Blog.Application.Features.Posts.UpdatePost;
 using Blog.Application.Features.Tags.CreateTag;
 using Blog.Application.Features.Tags.DeleteTag;
 using Blog.Application.Features.Tags.GetTagById;
@@ -42,6 +50,18 @@ namespace Blog.Application
             services.AddScoped<UpdateTagValidator>();
             services.AddScoped<UpdateTagHandler>();
             services.AddScoped<DeleteTagHandler>();
+
+            // Register Post handlers
+            services.AddScoped<CreatePostValidator>();
+            services.AddScoped<CreatePostHandler>();
+            services.AddScoped<GetPublishedPostsHandler>();
+            services.AddScoped<GetPostBySlugHandler>();
+            services.AddScoped<GetPostByIdHandler>();
+            services.AddScoped<UpdatePostValidator>();
+            services.AddScoped<UpdatePostHandler>();
+            services.AddScoped<DeletePostHandler>();
+            services.AddScoped<PublishPostHandler>();
+            services.AddScoped<UnpublishPostHandler>();
 
             return services;
         }

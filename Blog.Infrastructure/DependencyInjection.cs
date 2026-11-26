@@ -44,6 +44,10 @@ namespace Blog.Infrastructure
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
 
+            // Post Repository
+            services.AddScoped<IPostRepository, PostRepository>();
+
+
             return services;
         }
     }

@@ -1,0 +1,71 @@
+
+@Blog.Api_HostAddress = https://localhost:7125
+
+### ============================================
+### AUTHENTICATION
+### ============================================
+
+### Login Admin
+# @name loginAdmin
+POST {{Blog.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@email.com",
+  "password": "Senha123"
+}
+
+
+### ============================================
+### TAGS
+### ============================================
+
+### Criar Tag
+# @name createTag
+POST {{Blog.Api_HostAddress}}/api/tags
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "ASP.NET Core"
+}
+
+### Listar Tags
+GET {{Blog.Api_HostAddress}}/api/tags
+
+### Consultar Tag por ID
+GET {{Blog.Api_HostAddress}}/api/tags/{{createTag.response.body.$.id}}
+
+### Atualizar Tag
+PUT {{Blog.Api_HostAddress}}/api/tags/{{createTag.response.body.$.id}}
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "ASP.NET Core e Web API"
+}
+
+### Excluir Tag
+DELETE {{Blog.Api_HostAddress}}/api/tags/{{createTag.response.body.$.id}}
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+
+### ============================================
+### VALIDATION / AUTHORIZATION
+### ============================================
+
+### Criar Tag sem nome - deve retornar 400
+POST {{Blog.Api_HostAddress}}/api/tags
+Authorization: Bearer {{loginAdmin.response.body.$.data.accessToken}}
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### Criar Tag sem autenticação - deve retornar 401
+POST {{Blog.Api_HostAddress}}/api/tags
+Content-Type: application/json
+
+{
+  "name": "Tag sem autenticação"
+}

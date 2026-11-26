@@ -89,5 +89,24 @@ namespace Blog.Domain.Entities
 
             SetUpdatedAt();
         }
+
+        public void SetTags(IEnumerable<Guid> tagIds)
+        {
+            ArgumentNullException.ThrowIfNull(tagIds);
+
+            var ids = tagIds
+                .Select(id => DomainGuard.Required(id, nameof(tagIds)))
+                .Distinct()
+                .ToList();
+
+            _postTags.Clear();
+
+            foreach (var tagId in ids)
+            {
+                _postTags.Add(new PostTag(Id, tagId));
+            }
+
+            SetUpdatedAt();
+        }
     }
 }
